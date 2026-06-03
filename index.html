@@ -32,7 +32,7 @@
 <body>
 
     <header>
-        <h1>Les Waddle à Sanary - 27 mai - 3 juin 2026</h1>
+        <h1>Les Waddle à Sanary</h1>
     </header>
 
     <div id="map"></div>
@@ -69,7 +69,8 @@
             )
             .addTo(map)
             .on('click', function(){
-                window.location = 'slideshow.html?set=' + dossier;
+                // CORRECTION TECHNIQUE POUR GITHUB PAGES : Ajout de "./" pour rester dans le sous-dossier du projet
+                window.location.href = './slideshow.html?set=' + dossier;
             });
         }
 
