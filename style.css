@@ -1,0 +1,109 @@
+/* ==========================================================================
+   1. STYLES GÉNÉRAUX & CARTE (index.html)
+   ========================================================================== */
+
+/* Reset complet pour bloquer les défilements et fixer les tailles */
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: #f4f4f9;
+    color: #333;
+    overflow-x: hidden; /* Empêche le défilement horizontal parasite */
+}
+
+/* En-tête de la page de la carte */
+header {
+    background-color: #3388ff;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    height: 40px;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 1.8rem;
+    line-height: 40px;
+}
+
+/* Conteneur de la carte Leaflet */
+#map {
+    width: 100%;
+    height: calc(100% - 60px); /* Prend tout l'écran moins le header */
+}
+
+/* ==========================================================================
+   2. ÉTIQUETTES DE VILLES SUR LA CARTE (index.html)
+   ========================================================================== */
+
+/* On neutralise le conteneur par défaut de Leaflet */
+.custom-ville-marker {
+    border: none;
+    background: none;
+    width: auto !important;
+    height: auto !important;
+}
+
+/* Le cadre 3D entourant complètement le nom de la ville */
+.ville-box {
+    background-color: white;
+    border: 2px solid #3388ff;
+    border-radius: 6px;
+    padding: 6px 12px;
+    font-weight: bold;
+    text-align: center;
+    white-space: nowrap;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    
+    /* Centrage parfait de la boîte sur le repère de la carte */
+    transform: translate(-50%, -50%); 
+}
+
+/* Effet au survol des étiquettes */
+.ville-box:hover {
+    background-color: #3388ff;
+    color: white;
+    box-shadow: 0 5px 12px rgba(51, 136, 255, 0.4);
+    transform: translate(-50%, -55%);
+}
+
+
+/* ==========================================================================
+   3. DIAPORAMA PLEINE PAGE BLOQUÉ (slideshow.html)
+   ========================================================================== */
+
+/* Conteneur principal figeant l'écran total */
+.fullscreen-slideshow {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #000000; /* Fond noir pour les bandes des photos */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+    overflow: hidden;
+}
+
+/* L'IMAGE : On force l'affichage pleine page peu importe sa taille d'origine */
+#img1 {
+    width: 100vw !important;  /* Force la largeur complète de l'écran */
+    height: 100vh !important; /* Force la hauteur complète de l'écran */
+    object-fit: contain;      /* Ajuste sans déformer (bandes noires si besoin) */
+    display: block;
+}
+
+/* Bouton Fermer flottant en haut à gauche */
+.btn-retour {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 10; /* Passe obligatoirement au-dessus de

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Les Waddle à Sanary</title>
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    
+    <style>
+        /* Style épuré pour afficher uniquement l'icône et le texte (sans cadre ni fond) */
+        .adresse-brute {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            font-weight: bold;
+            font-size: 13px;
+            color: #2c3e50;
+            white-space: nowrap;
+            transform: translate(-50%, -50%);
+            /* Ombre blanche pour garantir la lisibilité du nom sur les détails de la carte */
+            text-shadow: 
+                -1px -1px 0 #fff,  
+                 1px -1px 0 #fff,
+                -1px  1px 0 #fff,
+                 1px  1px 0 #fff; 
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>Les Waddle à Sanary - 27 mai - 3 juin 2026</h1>
+    </header>
+
+    <div id="map"></div>
+
+    <script>
+        const map = L.map('map');
+
+        // Limites de la carte adaptées pour voir de Marseille à Hyères dès le départ
+        const bounds = L.latLngBounds(
+            [43.02, 5.45],
+            [43.45, 6.20]
+        );
+
+        map.fitBounds(bounds);
+
+        L.tileLayer(
+            'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+            {
+                attribution: '© OpenStreetMap'
+            }
+        ).addTo(map);
+
+        // 1. Fonction pour les villes (Conserve le cadre bleu de style.css et le lien diaporama)
+        function ville(lat, lon, nom, dossier){
+            L.marker(
+                [lat, lon],
+                {
+                    icon: L.divIcon({
+                        className: 'custom-ville-marker', 
+                        iconSize: null,                   
+                        html: '<div class="ville-box">' + nom + '</div>'
+                    })
+                }
+            )
+            .addTo(map)
+            .on('click', function(){
+                window.location = 'slideshow.html?set=' + dossier;
+            });
+        }
+
+        // 2. Fonction pour les adresses privées (Uniquement icône + texte, pas d'entourage, pas de clic)
+        function iconePrivee(lat, lon, icone, nom){
+            L.marker(
+                [lat, lon],
+                {
+                    icon: L.divIcon({
+                        className: 'custom-ville-marker',
+                        iconSize: null,
+                        html: '<div class="adresse-brute">' + icone + ' ' + nom + '</div>'
+                    })
+                }
+            )
+            .addTo(map);
+        }
+
+        // --- AFFICHAGE DES MARQUEURS ---
+
+        // Les villes avec diaporamas actifs (cadres bleus cliquables)
+        ville(43.118, 5.801, 'Sanary', 'sanary');
+        ville(43.136, 5.750, 'Bandol', 'bandol');
+        ville(43.174, 5.604, 'La Ciotat', 'laciotat');
+        ville(43.214, 5.539, 'Cassis', 'cassis');
+        ville(43.181, 5.756, 'Le Castellet', 'lecastellet');
+        ville(43.178, 5.708, 'La Cadière', 'lacadieredazur');
+        ville(43.078, 5.878, 'Le Brusc', 'lebrusc');
+        ville(43.296, 5.369, 'Marseille', 'marseille');
+        ville(43.076, 5.928, 'Saint Mandrier', 'saintmandrier');
+        ville(43.033, 6.131, 'Giens', 'giens');
+        ville(43.120, 6.128, 'Hyères', 'hyeres');
+
+        // Les icônes et noms seuls (sans aucun contour et non cliquables)
+        iconePrivee(43.12238501327063, 5.7791198297353255, '🏠', 'Edith et Jean-Luc');
+        iconePrivee(43.12206329030158, 5.78390604107079, '🏨', 'Sue et Nigel');
+
+    </script>
+
+</body>
+</html>
