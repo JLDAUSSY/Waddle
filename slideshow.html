@@ -2,24 +2,24 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Diaporama - Les Waddle</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Les Waddle à Sanary - Diaporama</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <a href="index.html" class="btn-retour">✕ Fermer</a>
-
     <div class="fullscreen-slideshow">
+        <a href="index.html" class="btn-retour">🗙 Fermer</a>
+
+        <div class="zone-nav gauche" onclick="window.prev()"><span>‹</span></div>
+
         <img id="img1" src="" alt="Diaporama">
 
-        <div id="caption" class="fullscreen-caption"></div>
+        <div class="zone-nav droite" onclick="window.next()"><span>›</span></div>
 
-        <div class="zone-nav gauche" onclick="prev()"><span>◀</span></div>
-        <div class="zone-nav droite" onclick="next()"><span>▶</span></div>
+        <div id="caption" class="fullscreen-caption"></div>
     </div>
 
     <script src="script.js"></script>
-
 </body>
 </html>

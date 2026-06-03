@@ -1,8 +1,7 @@
 /* ==========================================================================
-   1. STYLES GÉNÉRAUX & CARTE (index.html)
+   1. STYLES GÉNÉRAUX & STRUCTURE
    ========================================================================== */
 
-/* Reset complet pour bloquer les défilements et fixer les tailles */
 html, body {
     margin: 0;
     padding: 0;
@@ -11,7 +10,7 @@ html, body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     background-color: #f4f4f9;
     color: #333;
-    overflow-x: hidden; /* Empêche le défilement horizontal parasite */
+    overflow: hidden; /* Empêche les barres de défilement globales */
 }
 
 /* En-tête de la page de la carte */
@@ -30,17 +29,17 @@ header h1 {
     line-height: 40px;
 }
 
-/* Conteneur de la carte Leaflet */
-#map {
-    width: 100%;
-    height: calc(100% - 60px); /* Prend tout l'écran moins le header */
-}
-
 /* ==========================================================================
-   2. ÉTIQUETTES DE VILLES SUR LA CARTE (index.html)
+   2. PAGE D'ACCUEIL : CARTE LEAFLET (index.html)
    ========================================================================== */
 
-/* On neutralise le conteneur par défaut de Leaflet */
+#map {
+    width: 100%;
+    height: calc(100% - 60px); /* Ajuste la carte sous le header */
+    position: relative;
+}
+
+/* Neutralise les dimensions par défaut des marqueurs Leaflet */
 .custom-ville-marker {
     border: none;
     background: none;
@@ -48,7 +47,7 @@ header h1 {
     height: auto !important;
 }
 
-/* Le cadre 3D entourant complètement le nom de la ville */
+/* Cadres bleus cliquables pour les Villes */
 .ville-box {
     background-color: white;
     border: 2px solid #3388ff;
@@ -60,12 +59,9 @@ header h1 {
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
     cursor: pointer;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
-    
-    /* Centrage parfait de la boîte sur le repère de la carte */
     transform: translate(-50%, -50%); 
 }
 
-/* Effet au survol des étiquettes */
 .ville-box:hover {
     background-color: #3388ff;
     color: white;
@@ -73,19 +69,33 @@ header h1 {
     transform: translate(-50%, -55%);
 }
 
+/* Textes et émojis bruts pour les adresses privées (Edith & Jean-Luc / Sue & Nigel) */
+.adresse-brute {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-weight: bold;
+    font-size: 13px;
+    color: #2c3e50;
+    white-space: nowrap;
+    transform: translate(-50%, -50%);
+    text-shadow: 
+        -1px -1px 0 #fff,  
+         1px -1px 0 #fff,
+                -1px  1px 0 #fff,
+                 1px  1px 0 #fff; 
+}
 
 /* ==========================================================================
-   3. DIAPORAMA PLEINE PAGE BLOQUÉ (slideshow.html)
+   3. PAGE DIAPORAMA : ENCADREMENT ET FLÈCHES (slideshow.html)
    ========================================================================== */
 
-/* Conteneur principal figeant l'écran total */
+/* Conteneur principal noir fixe */
 .fullscreen-slideshow {
     position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
     height: 100vh;
-    background-color: #000000; /* Fond noir pour les bandes des photos */
+    background-color: #000000;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -93,17 +103,96 @@ header h1 {
     overflow: hidden;
 }
 
-/* L'IMAGE : On force l'affichage pleine page peu importe sa taille d'origine */
+/* Gestion de la taille de l'image (Garde les proportions sans zoomer) */
 #img1 {
-    width: 100vw !important;  /* Force la largeur complète de l'écran */
-    height: 100vh !important; /* Force la hauteur complète de l'écran */
-    object-fit: contain;      /* Ajuste sans déformer (bandes noires si besoin) */
+    max-width: 100% !important;
+    max-height: 100% !important;
+    width: auto !important;
+    height: auto !important;
+    object-fit: contain !important;
     display: block;
+    user-select: none;
 }
 
-/* Bouton Fermer flottant en haut à gauche */
+/* Bouton Fermer (Retour à l'index) */
 .btn-retour {
     position: fixed;
     top: 20px;
     left: 20px;
-    z-index: 10; /* Passe obligatoirement au-dessus de
+    z-index: 100; /* Reste au-dessus de tout */
+    background: rgba(0, 0, 0, 0.6);
+    color: white;
+    text-decoration: none;
+    padding: 10px 18px;
+    border-radius: 25px;
+    font-weight: bold;
+    font-size: 14px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+    transition: background-color 0.2s;
+}
+
+.btn-retour:hover {
+    background: rgba(231, 76, 60, 0.9); /* Rouge clair au survol */
+}
+
+/* Cadre de légende */
+.fullscreen-caption {
+    position: fixed;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 90; 
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    text-align: center;
+    max-width: 80%;
+    pointer-events: none; 
+}
+
+/* Zones cliquables pour les flèches latérales */
+.zone-nav {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 20%; /* Largeur de la zone réactive sur les côtés de l'écran */
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999 !important; /* Force l'affichage par-dessus l'image */
+    cursor: pointer;
+    user-select: none;
+    background-color: transparent;
+    transition: background-color 0.2s ease;
+}
+
+/* Caractères graphiques des flèches (‹ et ›) */
+.zone-nav span {
+    color: #ffffff !important;
+    opacity: 0.3; /* Visibles mais discrètes par défaut */
+    font-size: 7rem !important;
+    font-family: Arial, sans-serif !important;
+    font-weight: bold;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+/* Comportement au survol à la souris */
+.zone-nav:hover {
+    background-color: rgba(255, 255, 255, 0.08) !important; /* Donne un repère visuel de clic */
+}
+
+.zone-nav:hover span {
+    opacity: 1 !important; /* S'illumine totalement au survol */
+    transform: scale(1.1);  /* S'agrandit légèrement */
+}
+
+/* Alignement strict des deux zones */
+.gauche { 
+    left: 0; 
+}
+
+.droite { 
+    right: 0; 
+}
