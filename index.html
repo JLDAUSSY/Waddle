@@ -63,8 +63,21 @@
             }
         ).addTo(map);
 
+        // Fonction pour précharger une URL en arrière-plan
+        function prechargerPage(url) {
+            // Vérifie si le lien n'est pas déjà préchargé
+            if (!document.querySelector(`link[href="${url}"]`)) {
+                const lien = document.createElement('link');
+                lien.rel = 'prefetch';
+                lien.href = url;
+                document.head.appendChild(lien);
+            }
+        }
+
         function ville(lat, lon, nom, dossier){
-            L.marker(
+            const urlDestination = './slideshow.html?set=' + dossier;
+            
+            const marqueur = L.marker(
                 [lat, lon],
                 {
                     icon: L.divIcon({
@@ -73,10 +86,16 @@
                         html: '<div class="ville-box">' + nom + '</div>'
                     })
                 }
-            )
-            .addTo(map)
-            .on('click', function(){
-                window.location.href = './slideshow.html?set=' + dossier;
+            ).addTo(map);
+
+            // Au clic : on y va
+            marqueur.on('click', function(){
+                window.location.href = urlDestination;
+            });
+
+            // Au survol de la souris : on précharge la page en tâche de fond !
+            marqueur.on('mouseover', function(){
+                prechargerPage(urlDestination);
             });
         }
 
@@ -113,6 +132,7 @@
             }
         }).addTo(map);
 
+        // Villes
         ville(43.356, 5.204, 'Ensuès-la-Redonne', 'ensueslaredonne');
         ville(43.296, 5.369, 'Marseille', 'marseille');
         ville(43.214, 5.539, 'Cassis', 'cassis');
@@ -126,9 +146,11 @@
         ville(43.033, 6.131, 'Giens', 'giens');
         ville(43.120, 6.128, 'Hyères', 'hyeres');
 
+        // Hébergements
         iconePrivee(43.126, 5.775, '🏠', 'Edith et Jean-Luc');
         iconePrivee(43.121, 5.794, '🏨', 'Sue et Nigel');
 
+        // Étiquette Train Bleu
         L.marker([43.337, 5.275], {
             icon: L.divIcon({
                 className: 'custom-train-label',
