@@ -9,7 +9,8 @@ const sets = {
   marseille: [1, 2, 3, 4, 5],
   saintmandrier: [1, 2, 3, 4, 5],
   giens: [1, 2, 3],      
-  hyeres: [1, 2, 3, 4, 5, 6, 7, 8, 9]      
+  hyeres: [1, 2, 3, 4, 5, 6, 7, 8, 9],
+  ensueslaredonne: [1, 2, 3, 4, 5] // Ajout de Ensuès-la-Redonne
 };
 
 const titles = {
@@ -23,7 +24,8 @@ const titles = {
   marseille: { 1: "", 2: "", 3: "", 4: "" , 5: "" },
   saintmandrier: { 1: "", 2: "", 3: "", 4: "", 5: "" },
   giens: { 1: "", 2: "", 3: "" },
-  hyeres: { 1: "", 2: "", 3: "", 4: "", 5: "", 6: "", 7: "", 8: "", 9: "" }
+  hyeres: { 1: "", 2: "", 3: "", 4: "", 5: "", 6: "", 7: "", 8: "", 9: "" },
+  ensueslaredonne: { 1: "", 2: "", 3: "", 4: "", 5: "" } // Ajout de Ensuès-la-Redonne
 };
 
 const params = new URLSearchParams(window.location.search);
