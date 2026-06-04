@@ -82,28 +82,24 @@
             .addTo(map);
         }
 
-        // --- CHARGEMENT DU FICHIER GPX SUR MESURE ---
-        // Remplacez 'train_bleu.gpx' ci-dessous par le nom exact de votre fichier gpx
+        // --- CHARGEMENT DU FICHIER GPX (TRAIN BLEU) ---
         const urlGpx = 'train_bleu.gpx'; 
 
         new L.GPX(urlGpx, {
             async: true,
             marker_options: {
-                startIconUrl: null, // On cache les icônes de départ/arrivée par défaut du GPX
+                startIconUrl: null, // Masque les icônes de départ/arrivée par défaut du GPX
                 endIconUrl: null,
                 shadowUrl: null
             },
             polyline_options: {
-                color: '#e0533c',   // Votre rouge orangé parfait
-                weight: 4.5,        // Épaisseur idéale
+                color: '#4169E1',   // Superbe couleur Bleu Roi !
+                weight: 4.5,        // Épaisseur nette
                 opacity: 0.95,
                 dashArray: '8, 6',  // Style pointillés ferroviaires
                 lineCap: 'round',
                 lineJoin: 'round'
             }
-        }).on('loaded', function(e) {
-            // Optionnel : décochez la ligne du dessous si vous voulez que la carte se cadre automatiquement sur le GPX au démarrage
-            // map.fitBounds(e.target.getBounds());
         }).addTo(map);
 
 
