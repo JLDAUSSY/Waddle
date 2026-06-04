@@ -1,16 +1,16 @@
 const sets = {
-  sanary: [1, 2, 3, 4, 5],
-  bandol: [1, 2, 3, 4, 5],
+  sanary: [1, 2, 3, 4, 5,6,7,8],
+  bandol: [1, 2, 3, 4, 5,6],
   laciotat: [1, 2, 3, 4, 5],
-  cassis: [1, 2, 3],
-  lacadieredazur: [1, 2, 3, 4, 5, 6],
+  cassis: [1, 2, 3,4,5],
+  lacadieredazur: [1, 2, 3, 4, 5, 6,7,8,9],
   lebrusc: [1, 2, 3, 4, 5],
-  lecastellet: [1, 2, 3, 4],
-  marseille: [1, 2, 3, 4, 5],
-  saintmandrier: [1, 2, 3, 4, 5],
-  giens: [1, 2, 3],      
+  lecastellet: [1, 2, 3, 4,5,6,7,8],
+  marseille: [1, 2, 3, 4, 5,6,7,8,9,10,11],
+  saintmandrier: [1, 2, 3, 4, 5,6],
+  giens: [1, 2, 3,4,5,6,7],      
   hyeres: [1, 2, 3, 4, 5, 6, 7, 8, 9],
-  ensueslaredonne: [1, 2, 3, 4, 5] // Ajout de Ensuès-la-Redonne
+  ensueslaredonne: [1, 2, 3, 4, 5,6,7,8,9] // Ajout de Ensuès-la-Redonne
 };
 
 const titles = {

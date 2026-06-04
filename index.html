@@ -27,6 +27,21 @@
                 -1px  1px 0 #fff,
                  1px  1px 0 #fff; 
         }
+
+        /* Style modifié : Écritures 1,5 fois plus grandes et très grasses */
+        .label-train-bleu {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            font-weight: 900;     /* Gras très prononcé */
+            font-size: 20px;      /* 1,5 fois plus grand */
+            color: #4169E1;       /* Même Bleu Roi que la ligne */
+            white-space: nowrap;
+            transform: translate(-50%, -100%); 
+            text-shadow: 
+                -2px -2px 0 #fff,  
+                 2px -2px 0 #fff,
+                -2px  2px 0 #fff,
+                 2px  2px 0 #fff; /* Halo blanc élargi pour accompagner la taille des lettres */
+        }
     </style>
 </head>
 
@@ -88,15 +103,15 @@
         new L.GPX(urlGpx, {
             async: true,
             marker_options: {
-                startIconUrl: null, // Masque les icônes de départ/arrivée par défaut du GPX
+                startIconUrl: null, 
                 endIconUrl: null,
                 shadowUrl: null
             },
             polyline_options: {
-                color: '#4169E1',   // Superbe couleur Bleu Roi !
-                weight: 4.5,        // Épaisseur nette
+                color: '#4169E1',   
+                weight: 4.5,        
                 opacity: 0.95,
-                dashArray: '8, 6',  // Style pointillés ferroviaires
+                dashArray: '8, 6',  
                 lineCap: 'round',
                 lineJoin: 'round'
             }
@@ -124,6 +139,15 @@
         // Les hébergements privés
         iconePrivee(43.126, 5.775, '🏠', 'Edith et Jean-Luc');
         iconePrivee(43.121, 5.794, '🏨', 'Sue et Nigel');
+
+        // --- AJOUT DE L'ÉTIQUETTE "TRAIN BLEU" EN TOUT DERNIER ---
+        L.marker([43.337, 5.275], {
+            icon: L.divIcon({
+                className: 'custom-train-label',
+                iconSize: null,
+                html: '<div class="label-train-bleu">Train Bleu</div>'
+            })
+        }).addTo(map);
 
     </script>
 
